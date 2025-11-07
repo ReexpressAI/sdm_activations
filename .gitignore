@@ -28,5 +28,3 @@ wheels/
 *.pt
 *.npy
 
-############### Contributors should ignore changes to the mcp_settings.json config, as via git update-index --skip-worktree code/reexpress/mcp_settings.json
-code/reexpress/mcp_settings.json
