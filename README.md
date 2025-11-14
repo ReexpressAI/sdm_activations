@@ -13,7 +13,7 @@ Create the conda environment in [INSTALL.md](documentation/setup/INSTALL.md). In
 
 ### "Similarity-Distance-Magnitude Activations"
 
-Scripts for training and testing the models are in the [sdm_activations_paper directory](documentation/scripts/sdm_activations_paper/models).
+Scripts for training and testing the models are in the [sdm_activations_paper directory](documentation/scripts/sdm_activations_paper/models). Additional experiments with variational Bayesian last-layer neural networks are described in [supplemental_material](documentation/supplemental_material/sdm_addendum.pdf).
 
 ### "Similarity-Distance-Magnitude Language Models"
 
