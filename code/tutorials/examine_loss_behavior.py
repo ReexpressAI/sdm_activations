@@ -4,16 +4,10 @@
 Example code for the tutorial examining the loss and the gradient.
 """
 import argparse
-import time
-import torch
 import torch.nn as nn
-# import matplotlib.pyplot as plt
-import numpy as np
 import torch
-from datetime import datetime
 
-from local_scaling_tutorial_code import local_soft_sdm_max
-from local_scaling_tutorial_code import local_soft_sdm_max_log_to_probability
+from local_scaling_tutorial_code import local_soft_sdm_max_torch_equivalent as soft_sdm_max
 
 
 def compare_loss_and_gradient_behavior(logits, target_class, distance_quantiles, q=None):
@@ -46,7 +40,8 @@ def compare_loss_and_gradient_behavior(logits, target_class, distance_quantiles,
                 loss = ce_loss(scaled_logits, target)
             else:
                 offset = ""
-                loss = nll_loss(local_soft_sdm_max(scaled_logits, torch.tensor([q_val]).unsqueeze(1), log=True),
+                loss = nll_loss(soft_sdm_max(scaled_logits, torch.tensor([q_val]).unsqueeze(1), log=True,
+                                             change_of_base=True),
                                 target)
             loss.backward()
             # Gradient wrt logits
@@ -60,38 +55,34 @@ def compare_loss_and_gradient_behavior(logits, target_class, distance_quantiles,
                 print(f"q = {q_val}")
                 print(f"{offset}  d = {d:.2f}")
                 print(f"{offset}  sdm = "
-                      f"{local_soft_sdm_max(scaled_logits, torch.tensor([q_val]).unsqueeze(1), log=False)}")
+                      f"{soft_sdm_max(scaled_logits, torch.tensor([q_val]).unsqueeze(1), log=False)}")
+            # For the SDM loss, the loss is rescaled by a factor of 1/log_e(2+q) relative to standard cross-entropy.
             print(f"{offset}  Loss = {loss.item():.4f}")
             print(f"{offset}  Gradient = {grad.numpy()}")
             print(f"{offset}  Gradient L2 norm = {grad_norm:.4f}\n")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="-----[Tutorial]-----")
+    parser = argparse.ArgumentParser(description="-----[Scaling Tutorial]-----")
     options = parser.parse_args()
-    # Set higher-resolution for saving
-    # plt.rcParams.update({
-    #     # 'figure.dpi': 300,
-    #     'savefig.dpi': 300,
-    #     # 'savefig.bbox': 'tight',
-    #     # 'savefig.pad_inches': 0.1
-    # })
-    start_time = time.time()
 
-    # Example: logits favor class 1, but true class is 0
-    logits = torch.tensor([[1.0, 30.0]])  # raw scores before softmax
+    # # Example: logits very strongly favor class 1, but true class is label 0:
+    # #  Ref: torch.softmax(torch.tensor([[1.0, 30.0]]), dim=-1): tensor([[2.5437e-13, 1.0000e+00]])
+    # logits = torch.tensor([[1.0, 30.0]])  # 'logits' are the raw scores before softmax
+    # target_class = 0
+
+    # Example: logits favor class 1, but true class is label 0:
+    #  Ref: torch.softmax(torch.tensor([[1.0, 3.0]]), dim=-1): tensor([[0.1192, 0.8808]])
+    logits = torch.tensor([[1.0, 3.0]])  # 'logits' are the raw scores before softmax
     target_class = 0
 
-    distance_quantiles = [0.1, 0.25, 0.5, 0.75, 1.0]
+    distance_quantiles = [0.0, 0.1, 0.25, 0.5, 0.75, 1.0]
     print(f"Cross-entropy with inverse temperature")
     compare_loss_and_gradient_behavior(logits, target_class, distance_quantiles, q=None)
 
     q = [0, torch.e-2, 1, 100]
     print(f"SDM loss")
     compare_loss_and_gradient_behavior(logits, target_class, distance_quantiles, q=q)
-
-    cumulative_time = time.time() - start_time
-    print(f"Cumulative running time: {cumulative_time}")
 
 
 if __name__ == "__main__":
