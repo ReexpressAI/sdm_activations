@@ -19,6 +19,10 @@ Scripts for training and testing the models are in the [sdm_activations_paper di
 
 Scripts for training and testing the models are in the [sdm_lms_paper directory](documentation/scripts/sdm_lms_paper/models).
 
+### Papers
+
+For convenience, a copy of each of the papers is included in the [papers directory](papers). (The content is identical to the arXiv versions, with some minor copyediting changes.)
+
 ## Citations
 
 ```
