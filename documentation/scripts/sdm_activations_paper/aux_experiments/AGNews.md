@@ -129,7 +129,11 @@ We also examine the interpretability-by-exemplar behavior on the AGNews dataset.
 
 Highest probability example in the HR region, but $y\neq\hat{y}$:
 
-> ```Argentina Beats U.S. Men's Basketball Team Argentina defeated the United States team of National Basketball Association stars 89-81 here Friday in the Olympic semi-finals, dethroning the three-time defending champions.``` $y$=World (0)
+> ```Argentina Beats U.S. Men's Basketball Team Argentina defeated the United States team of National Basketball Association stars 89-81 here Friday in the Olympic semi-finals, dethroning the three-time defending champions.```
+
+> Ground-truth label: $y$=World (0)
+
+SDM estimator output:
 
 $\hat{y}$=Sports (1)
 
@@ -145,7 +149,9 @@ $sdm(z')_{lower} \approx [0.0, 1.0, 0.0, 0.0]$ (See Appendix A.6)
 
 Nearest training match:
 
-> ```Puerto Rico Stuns U.S. in Opening Round Puerto Rico upsets the United States, 92-73, at the men's basketball preliminaries on Sunday, the first loss at the Games for the three-time defending gold medalists since 1988.``` $y$=Sports (1)
+> ```Puerto Rico Stuns U.S. in Opening Round Puerto Rico upsets the United States, 92-73, at the men's basketball preliminaries on Sunday, the first loss at the Games for the three-time defending gold medalists since 1988.```
+
+> Ground-truth label: $y$=Sports (1)
 
 **This is a case of ground-truth label error/ambiguity (i.e., aleatoric/irreducible error) in the test set.**
 
@@ -153,7 +159,11 @@ Nearest training match:
 
 Highest probability example in the HR region, $y = \hat{y}$:
 
-> ```Drew Out of Braves' Lineup After Injury (AP) AP - Outfielder J.D. Drew missed the Atlanta Braves' game against the St. Louis Cardinals on Sunday night with a sore right quadriceps.``` $y$=Sports (1)
+> ```Drew Out of Braves' Lineup After Injury (AP) AP - Outfielder J.D. Drew missed the Atlanta Braves' game against the St. Louis Cardinals on Sunday night with a sore right quadriceps.```
+
+> Ground-truth label: $y$=Sports (1)
+
+SDM estimator output:
 
 $\hat{y}$=Sports (1)
 
@@ -169,7 +179,9 @@ $sdm(z')_{lower} \approx [0.0, 1.0, 0.0, 0.0]$ (See Appendix A.6)
 
 Nearest training match:
 
-> ```Cards Second Baseman Tony Womack Injured (AP) AP - St. Louis Cardinals second baseman Tony Womack left Monday night's game against Houston in the seventh inning after getting hit on the left hand with a pitch.``` $y$=Sports (1)
+> ```Cards Second Baseman Tony Womack Injured (AP) AP - St. Louis Cardinals second baseman Tony Womack left Monday night's game against Houston in the seventh inning after getting hit on the left hand with a pitch.```
+
+> Ground-truth label: $y$=Sports (1)
 
 
 **Takeaway: The interpretability-by-exemplar properties are present on this non-binary classification task.**
