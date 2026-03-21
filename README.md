@@ -13,7 +13,9 @@ Create the conda environment in [INSTALL.md](documentation/setup/INSTALL.md). In
 
 ### "Similarity-Distance-Magnitude Activations"
 
-Scripts for training and testing the models are in the [sdm_activations_paper directory](documentation/scripts/sdm_activations_paper/models).
+Scripts for training and testing the models in the main text are in the [sdm_activations_paper directory](documentation/scripts/sdm_activations_paper/models).
+
+[README_auxiliary_experiments.md](documentation/scripts/sdm_activations_paper/aux_experiments/README_auxiliary_experiments.md) provides some auxiliary experiments (along with replication code/scripts) to further demonstrate aspects of the behavior of SDM activations and estimators.
 
 ### "Similarity-Distance-Magnitude Language Models"
 
