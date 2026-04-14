@@ -39,6 +39,7 @@ For convenience, a copy of each of the papers is included in the [papers directo
 }
 ```
 
+To appear in *Findings of the Association for Computational Linguistics: ACL 2026*, San Diego, CA, USA:
 
 ```
 @misc{Schmaltz-2025-SimilarityDistanceMagnitudeActivations,

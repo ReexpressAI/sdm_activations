@@ -236,3 +236,113 @@ python -u utils_graph_output.py \
 --x_axis_histogram_width=${X_BIN_WIDTH} \
 --model_version_label="v2.0.0" \
 --save_file_prefix=${OUTPUT_DIR}/${OUTPUT_FILE_PREFIX}
+
+#########################################################################################################
+##################### Analysis -- Ensemble eval :: For reference, here is an example of running the
+##################### evaluation script introduced in v2.3.0 of the code that has an option for
+##################### constructing an ensemble across the models from each of the J=10 training iterations.
+#########################################################################################################
+
+cd code/reexpress # Update with the applicable path (v2.3.0)
+conda activate re_mcp_v200
+
+
+RUN_SUFFIX_ID="phi_3_5_instruct"
+MODEL_TYPE="classifier"
+
+ALPHA=0.95
+EXEMPLAR_DIMENSION=1000
+LEARNING_RATE=0.00001
+
+MODEL_OUTPUT_DIR=/home/jupyter/models/sdm_paper/release_version/sentiment/"${RUN_SUFFIX_ID}_${MODEL_TYPE}_${ALPHA}_${EXEMPLAR_DIMENSION}"/ # Update with the applicable path
+
+DATA_DIR="/home/jupyter/data/classification/sentiment_phi35"  # Update with the applicable path
+MODEL_LABEL="phi35"
+LATEX_MODEL_NAME='modelPhiThreeFiveInstructSDM'
+
+MODEL_OUTPUT_DIR_WITH_SUBFOLDER=${MODEL_OUTPUT_DIR}/final_eval_output_models_0_through_9
+mkdir ${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}
+
+STANDARD_OUT_LOG_FILE=${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/eval_standard_out.log.txt
+echo ${STANDARD_OUT_LOG_FILE}
+
+for EVAL_LABEL in "validation_set" "eval_set" "SemEval2017-task4-test.subtask-A.english.binaryevalformat.balanced" "validation_set.ood_random_shuffle" "eval_set.ood_random_shuffle" "SemEval2017-task4-test.subtask-A.english.binaryevalformat.balanced.ood_random_shuffle" "best_iteration_data_calibration"; do
+
+# Set LATEX_DATASET_LABEL based on EVAL_LABEL
+if [ "$EVAL_LABEL" = "best_iteration_data_calibration" ]; then
+    # Calibration (i.e., the original input to --input_calibration_set_file) is shuffled during training, so we retrieve the final shuffle associated with this model iteration
+    EVAL_FILE="${MODEL_OUTPUT_DIR}/best_iteration_data/calibration.jsonl"
+    LATEX_DATASET_LABEL="datasetSentiment ca"
+else
+    EVAL_FILE="${DATA_DIR}/eval_sets/${EVAL_LABEL}.${MODEL_LABEL}.jsonl"
+fi
+if [ "$EVAL_LABEL" = "validation_set" ]; then
+    LATEX_DATASET_LABEL="datasetSentiment"
+elif [ "$EVAL_LABEL" = "eval_set" ]; then
+    LATEX_DATASET_LABEL="datasetSentimentSmall"
+elif [ "$EVAL_LABEL" = "SemEval2017-task4-test.subtask-A.english.binaryevalformat.balanced" ]; then
+    LATEX_DATASET_LABEL="datasetSentimentOOD"
+elif [ "$EVAL_LABEL" = "validation_set.ood_random_shuffle" ]; then
+    LATEX_DATASET_LABEL="datasetSentimentShuffled"
+elif [ "$EVAL_LABEL" = "eval_set.ood_random_shuffle" ]; then
+    LATEX_DATASET_LABEL="datasetSentimentSmallShuffled"
+elif [ "$EVAL_LABEL" = "SemEval2017-task4-test.subtask-A.english.binaryevalformat.balanced.ood_random_shuffle" ]; then
+    LATEX_DATASET_LABEL="datasetSentimentOODShuffled"
+fi
+
+python -u reexpress.py \
+--input_training_set_file "${TRAIN_FILE}" \
+--input_calibration_set_file "${CALIBRATION_FILE}" \
+--input_eval_set_file "${EVAL_FILE}" \
+--use_embeddings \
+--alpha=${ALPHA} \
+--class_size 2 \
+--seed_value 0 \
+--epoch 200 \
+--batch_size 50 \
+--eval_batch_size 50 \
+--learning_rate ${LEARNING_RATE} \
+--model_dir "${MODEL_OUTPUT_DIR}" \
+--number_of_random_shuffles 10 \
+--maxQAvailableFromIndexer 2048 \
+--exemplar_vector_dimension ${EXEMPLAR_DIMENSION} \
+--main_device="cuda:0" \
+--label_error_hr_lower_file=${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.possible_label_errors.hr_lower.jsonl" \
+--predictions_in_high_reliability_region_lower_file=${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.high_reliability_lower.jsonl" \
+--label_error_file=${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.possible_label_errors.jsonl" \
+--predictions_in_high_reliability_region_file=${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.high_reliability.jsonl" \
+--prediction_output_file=${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.all_predictions.jsonl" \
+--eval_only \
+--eval_ensemble \
+--eval_ensemble_start_iteration=0 \
+--eval_ensemble_end_iteration=9 \
+--eval_ensemble_label_error_hr_lower_file=${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.possible_label_errors.hr_lower.ensemble.jsonl" \
+--eval_ensemble_predictions_in_high_reliability_region_lower_file=${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.high_reliability_lower.ensemble.jsonl" \
+--eval_ensemble_label_error_file=${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.possible_label_errors.ensemble.jsonl" \
+--eval_ensemble_predictions_in_high_reliability_region_file=${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.high_reliability.ensemble.jsonl" \
+--eval_ensemble_prediction_output_file=${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.all_predictions.ensemble.jsonl" \
+--construct_results_latex_table_rows \
+--additional_latex_meta_data="${LATEX_DATASET_LABEL},${LATEX_MODEL_NAME}" > ${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.version_2.3.0.log.txt"
+
+echo "Eval Label: ${EVAL_LABEL}" >> ${STANDARD_OUT_LOG_FILE}
+echo "Possible label errors in HR_LOWER region (sorted) file: "${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.possible_label_errors.hr_lower.jsonl" >> ${STANDARD_OUT_LOG_FILE}
+echo "High reliablity region LOWER predictions (sorted) file: "${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.high_reliability_lower.jsonl" >> ${STANDARD_OUT_LOG_FILE}
+echo "" >> ${STANDARD_OUT_LOG_FILE}
+echo "Possible label errors in HR region (sorted) file: "${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.possible_label_errors.jsonl" >> ${STANDARD_OUT_LOG_FILE}
+echo "High reliablity region predictions (sorted) file: "${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.high_reliability.jsonl" >> ${STANDARD_OUT_LOG_FILE}
+echo "" >> ${STANDARD_OUT_LOG_FILE}
+echo "All predictions file: "${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.all_predictions.jsonl" >> ${STANDARD_OUT_LOG_FILE}
+echo "-----Ensemble-----" >> ${STANDARD_OUT_LOG_FILE}
+echo "ENSEMBLE Possible label errors in HR_LOWER region (sorted) file: >> ${STANDARD_OUT_LOG_FILE} "${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.possible_label_errors.hr_lower.ensemble.jsonl" >> ${STANDARD_OUT_LOG_FILE}
+echo "ENSEMBLE High reliablity region LOWER predictions (sorted) file: "${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.high_reliability_lower.ensemble.jsonl" >> ${STANDARD_OUT_LOG_FILE}
+echo "" >> ${STANDARD_OUT_LOG_FILE}
+echo "ENSEMBLE Possible label errors in HR region (sorted) file: "${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.possible_label_errors.ensemble.jsonl" >> ${STANDARD_OUT_LOG_FILE}
+echo "ENSEMBLE High reliablity region predictions (sorted) file: "${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.high_reliability.ensemble.jsonl" >> ${STANDARD_OUT_LOG_FILE}
+echo "" >> ${STANDARD_OUT_LOG_FILE}
+echo "ENSEMBLE All predictions file: "${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.all_predictions.ensemble.jsonl" >> ${STANDARD_OUT_LOG_FILE}
+echo "" >> ${STANDARD_OUT_LOG_FILE}
+echo "Eval log file: "${MODEL_OUTPUT_DIR_WITH_SUBFOLDER}/"eval.${EVAL_LABEL}.version_2.3.0.log.txt" >> ${STANDARD_OUT_LOG_FILE}
+echo "" >> ${STANDARD_OUT_LOG_FILE}
+echo "" >> ${STANDARD_OUT_LOG_FILE}
+
+done
