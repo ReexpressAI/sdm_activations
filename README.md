@@ -21,23 +21,13 @@ Scripts for training and testing the models in the main text are in the [sdm_act
 
 Scripts for training and testing the models are in the [sdm_lms_paper directory](documentation/scripts/sdm_lms_paper/models).
 
+*Work in progress: Larger scale experiments and models are in development.*
+
 ### Papers
 
-For convenience, a copy of each of the papers is included in the [papers directory](papers). (The content is identical to the arXiv versions, with some minor copyediting changes.)
+For convenience, a copy of each of the papers is included in the [papers directory](papers). The copy of "Similarity-Distance-Magnitude Activations" is the current version on arXiv, which is identical to the camera-ready version (other than the page numbers). The copy of "Similarity-Distance-Magnitude Language Models" has some minor copyediting improvements relative to the current arXiv version, but it has the same content.
 
 ## Citations
-
-```
-@misc{Schmaltz-2025-SimilarityDistanceMagnitudeLanguageModels,
-      title={Similarity-Distance-Magnitude Language Models}, 
-      author={Allen Schmaltz},
-      year={2025},
-      eprint={2510.26183},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2510.26183}, 
-}
-```
 
 To appear in *Findings of the Association for Computational Linguistics: ACL 2026*, San Diego, CA, USA:
 
@@ -50,5 +40,19 @@ To appear in *Findings of the Association for Computational Linguistics: ACL 202
       archivePrefix={arXiv},
       primaryClass={cs.LG},
       url={https://arxiv.org/abs/2509.12760}, 
+}
+```
+
+Pre-print (work in progress):
+
+```
+@misc{Schmaltz-2025-SimilarityDistanceMagnitudeLanguageModels,
+      title={Similarity-Distance-Magnitude Language Models}, 
+      author={Allen Schmaltz},
+      year={2025},
+      eprint={2510.26183},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2510.26183}, 
 }
 ```
