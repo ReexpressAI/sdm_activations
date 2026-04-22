@@ -39,7 +39,8 @@ To appear in *Findings of the Association for Computational Linguistics: ACL 202
       eprint={2509.12760},
       archivePrefix={arXiv},
       primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2509.12760}, 
+      url={https://arxiv.org/abs/2509.12760},
+      note={To appear in \emph{Findings of the Association for Computational Linguistics: ACL 2026}, San Diego, CA, USA.},
 }
 ```
 
