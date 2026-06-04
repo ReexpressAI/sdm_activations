@@ -6,7 +6,7 @@
 
 ## Overview
 
-This repo includes support code and replication scripts for the papers "Similarity-Distance-Magnitude Activations" and "Similarity-Distance-Magnitude Language Models". This repo only includes auxiliary code (e.g., for preprocessing the research datasets) and scripts containing the parameters used for the experiments. ** The main code is in the [Reexpress MCP Server repo](https://github.com/ReexpressAI/reexpress_mcp_server) **. For reference, the provided replication scripts used version 2.0.0 (Commit 78c8465), but we generally recommend using the most recent release for new applications and research. The preprocessed data is available in the GitHub release binaries in *this* repo.
+This repo includes support code and replication scripts for the papers "Similarity-Distance-Magnitude Activations" and "Similarity-Distance-Magnitude Language Models". This repo only includes auxiliary code (e.g., for preprocessing the research datasets) and scripts containing the parameters used for the experiments. The **main code** is in the [Reexpress MCP Server repo](https://github.com/ReexpressAI/reexpress_mcp_server). For reference, the provided replication scripts used version 2.0.0 (Commit 78c8465), but we generally recommend using the most recent release for new applications and research. The preprocessed data is available in the GitHub release binaries in *this* repo.
 
 ## Installation
 
