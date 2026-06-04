@@ -1,5 +1,8 @@
 # SDM Activations and SDM Language Models research repo
 
+### Video overview[^1]: [Here](https://youtu.be/bKswgsyRAPo)
+
+[![Watch the ACL Findings 2026 video](papers/presentations/sdm_activations/ACL_2026_Find-3358.poster.png)](https://youtu.be/bKswgsyRAPo)
 
 ## Overview
 
@@ -26,6 +29,10 @@ Scripts for training and testing the models are in the [sdm_lms_paper directory]
 ### Papers
 
 For convenience, a copy of each of the papers is included in the [papers directory](papers). The copy of "Similarity-Distance-Magnitude Activations" is the current version on arXiv, which is identical to the camera-ready version (other than the page numbers). The copy of "Similarity-Distance-Magnitude Language Models" has some minor copyediting improvements relative to the current arXiv version, but it has the same content.
+
+### Presentations
+
+A recording of the ACL Findings 2026 video presentation for "Similarity-Distance-Magnitude Activations" is available [here](https://youtu.be/bKswgsyRAPo), and the presentation slides are [here](papers/presentations/sdm_activations/ACL_2026_Find-3358.presentation.pdf). A PDF of the poster is [here](papers/presentations/sdm_activations/ACL_2026_Find-3358.poster.pdf).
 
 ## Citations
 
