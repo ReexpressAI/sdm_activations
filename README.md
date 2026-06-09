@@ -28,7 +28,7 @@ Scripts for training and testing the models are in the [sdm_lms_paper directory]
 
 ### Papers
 
-For convenience, a copy of each of the papers is included in the [papers directory](papers). The copy of "Similarity-Distance-Magnitude Activations" is the current version on arXiv, which is identical to the camera-ready version (other than the page numbers). The copy of "Similarity-Distance-Magnitude Language Models" has some minor copyediting improvements relative to the current arXiv version, but it has the same content.
+For convenience, a copy of each of the papers is included in the [papers directory](papers). The copy of "Similarity-Distance-Magnitude Activations" is the current version on arXiv (v5 is the same as v4, other than some minor typos corrected). The copy of "Similarity-Distance-Magnitude Language Models" has some minor copyediting improvements relative to the current arXiv version, but it has the same content.
 
 ### Presentations
 
