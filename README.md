@@ -36,18 +36,26 @@ A recording of the ACL Findings 2026 video presentation for "Similarity-Distance
 
 ## Citations
 
-To appear in *Findings of the Association for Computational Linguistics: ACL 2026*, San Diego, CA, USA:
+Appearing in *Findings of the Association for Computational Linguistics: ACL 2026*, San Diego, CA, USA:
 
 ```
-@misc{Schmaltz-2025-SimilarityDistanceMagnitudeActivations,
-      title={Similarity-Distance-Magnitude Activations}, 
-      author={Allen Schmaltz},
-      year={2025},
-      eprint={2509.12760},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2509.12760},
-      note={To appear in \emph{Findings of the Association for Computational Linguistics: ACL 2026}, San Diego, CA, USA.},
+@inproceedings{Schmaltz-2026-SimilarityDistanceMagnitudeActivations,
+    title = "Similarity-Distance-Magnitude Activations",
+    author = "Schmaltz, Allen",
+    editor = "Liakata, Maria  and
+      Moreira, Viviane P.  and
+      Zhang, Jiajun  and
+      Jurgens, David",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {ACL} 2026",
+    month = jul,
+    year = "2026",
+    address = "San Diego, California, United States",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.findings-acl.1109/",
+    doi = "10.18653/v1/2026.findings-acl.1109",
+    pages = "22037--22057",
+    ISBN = "979-8-89176-395-1",
+    abstract = "We introduce the Similarity-Distance-Magnitude (SDM) activation function, a more robust and interpretable formulation of the standard softmax activation function, adding Similarity (i.e., correctly predicted depth-matches into training) awareness and Distance-to-training-distribution awareness to the existing output Magnitude (i.e., decision-boundary) awareness, and enabling interpretability-by-exemplar via dense matching. We further introduce the SDM estimator, based on a data-driven partitioning of the class-wise empirical CDFs via the SDM activation, to control the class- and prediction-conditional accuracy among selective classifications. When used as the final-layer activation over pre-trained language models for selective classification, the SDM estimator is more robust to covariate shifts and out-of-distribution inputs than existing calibration methods using softmax activations, while remaining informative over in-distribution data."
 }
 ```
 
