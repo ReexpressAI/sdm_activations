@@ -40,13 +40,13 @@
 #
 # The original full dataset is here: https://ai.stanford.edu/~amaas/data/sentiment/
 #
-# For the in-distribution data, to simplify things, we recommend using the full original sets, or sampling smaller sets, as needed, to construct in-distribution training/calibration and held-out sets. The original splits used in the paper were constructed as follows, and were splits used from an earlier analysis of existing works. For training_set.jsonl, we used the 3.4k split from the following work:
+# For the in-distribution data, to simplify things and future downstream replications, we recommend using the full original sets (from Maas et al., 2011), or sampling smaller sets, as needed, to construct in-distribution training/calibration and held-out sets. The original splits used in the paper were constructed as follows, and were splits used from an earlier analysis of existing works (using the preprocessing of https://doi.org/10.1162/coli_a_00416). For training_set.jsonl, we used the 3,414-document split from the following work:
 #
 # Kaushik, Divyansh, Eduard Hovy, and Zachary Lipton. 2020. Learning the difference that makes a difference with counterfactually-augmented data. In International Conference on Learning Representations.
 #
-# For calibration_set.jsonl, we used a disjoint 16k set of reviews from the original training set of Maas et al. (2011). The two held-out sets referenced below (the 488 documents of eval_set.jsonl and the 1583 documents of validation_set.jsonl) are remaining disjoint sets used for evaluation. The paper uses the larger 1583 set as D_te.
+# For calibration_set.jsonl, we used a disjoint 14,250-document set of reviews from the original training set of Maas et al. (2011). The two held-out sets referenced below (the 488 documents of eval_set.jsonl and the 1,583 documents of validation_set.jsonl) are remaining disjoint sets used for evaluation. The paper uses the larger 1,583 set as D_te.
 #
-# The SemEval2017-task4-test.subtask-A.english.binaryevalformat.balanced.jsonl dataset ("SentimentOOD" in the paper) is from:
+# The out-of-distribution SemEval2017-task4-test.subtask-A.english.binaryevalformat.balanced.jsonl dataset ("SentimentOOD" in the paper) is from:
 #
 # Sara Rosenthal, Noura Farra, and Preslav Nakov. 2017. SemEval-2017 Task 4: Sentiment Analysis in Twitter. In Proceedings of the 11th International Workshop on Semantic Evaluation (SemEval-2017), pages 502–518, Vancouver, Canada. Association for Computational Linguistics. https://doi.org/10.18653/v1/S17-2088
 #
