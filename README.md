@@ -6,13 +6,25 @@
 
 ## Overview
 
-This repo includes support code and replication scripts for the papers "Similarity-Distance-Magnitude Activations" and "Similarity-Distance-Magnitude Language Models". This repo only includes auxiliary code (e.g., for preprocessing the research datasets) and scripts containing the parameters used for the experiments. The **main code** is in the [Reexpress MCP Server repo](https://github.com/ReexpressAI/reexpress_mcp_server). For reference, the provided replication scripts used version 2.0.0 (Commit 78c8465), but we generally recommend using the most recent release for new applications and research. The preprocessed data is available in the GitHub release binaries in *this* repo.
+This repo includes support code and replication scripts for the papers "Similarity-Distance-Magnitude Activations" and "Similarity-Distance-Magnitude Language Models". This repo only includes auxiliary code (e.g., for preprocessing the research datasets) and scripts containing the parameters used for the experiments. The **research code** is in the [Reexpress MCP Server repo](https://github.com/ReexpressAI/reexpress_mcp_server). The preprocessed embeddings are available in the GitHub release binaries in *this* repo for purposes of replicating results.
 
-*Update August 28, 2026*: Release v2.4.1 of the Reexpress MCP Server is the latest release that includes the code for replicating the baseline adaptors, as well as the original LM post-training code for Phi-3.5. When using SDM estimators for new projects, we recommend using the streamlined codebase starting in release v2.5.0. The SDM estimator behavior is the same, but the new version also implements [nested estimators](https://raw.githubusercontent.com/ReexpressAI/sdm_activations/main/research_notes/nested_sdm_estimators.pdf), which are useful in practice for ranking the relative probability of points outside the High-Reliability region. Using the newer version is largely the same, with some minor changes and additions to the command-line interface. For reference, the directory [v2.5.0_code_examples](documentation/scripts/sdm_activations_paper/v2.5.0_code_examples) includes representative usage examples. (Separately, the LM post-training code will eventually have its own dedicated repo, coinciding with the release of a revised version of "Similarity-Distance-Magnitude Language Models".)
+**For new applications and research, we recommend using the Apache-2.0 Python package [reexpress-sdm](https://pypi.org/project/reexpress-sdm/).**
+
+## Changelog
+
+### Update October 5, 2026:
+
+The research note on nested SDM estimators has been incorporated into v6 of the arXiv copy of "Similarity-Distance-Magnitude Activations" as Appendix A.10.
+
+We recommend that new applications of SDM estimators use the Apache-2.0 Python package [reexpress-sdm](https://pypi.org/project/reexpress-sdm/).
+
+### Update August 28, 2026:
+
+Release v2.4.1 of the Reexpress MCP Server is the latest release that includes the code for replicating the baseline adaptors, as well as the original LM post-training code for Phi-3.5. When using SDM estimators for new projects, we recommend using the streamlined codebase starting in release v2.5.0. The SDM estimator behavior is the same, but the new version also implements [nested estimators](https://raw.githubusercontent.com/ReexpressAI/sdm_activations/main/research_notes/nested_sdm_estimators.pdf), which are useful in practice for ranking the relative probability of points outside the High-Reliability region. Using the newer version is largely the same, with some minor changes and additions to the command-line interface. For reference, the directory [v2.5.0_code_examples](documentation/scripts/sdm_activations_paper/v2.5.0_code_examples) includes representative usage examples. (Separately, the LM post-training code will eventually have its own dedicated repo, coinciding with the release of a revised version of "Similarity-Distance-Magnitude Language Models".)
 
 ## Installation
 
-Create the conda environment in [INSTALL.md](documentation/setup/INSTALL.md). In our provided scripts, we assume Linux and CUDA GPUs, but the scripts should also work on cpu, or on Apple silicon ('mps'), if you install an applicable version of FAISS and adjust the command line options for the device, accordingly. 
+See [https://pypi.org/project/reexpress-sdm/](https://pypi.org/project/reexpress-sdm/). (Legacy research code is alternatively available in the repos noted above.)
 
 ## Experiments
 
@@ -26,11 +38,11 @@ Scripts for training and testing the models in the main text are in the [sdm_act
 
 Scripts for training and testing the models are in the [sdm_lms_paper directory](documentation/scripts/sdm_lms_paper/models).
 
-*Work in progress: Larger scale experiments and models are in development.*
+*Work in progress: Larger scale experiments and models are in development. (See the changelog from August 28, 2026. This work will be moved to a dedicated repo in the future.)*
 
 ### Papers
 
-For convenience, a copy of each of the papers is included in the [papers directory](papers). The copy of "Similarity-Distance-Magnitude Activations" is the current version on arXiv (v5 is the same as v4, other than some minor typos corrected). The copy of "Similarity-Distance-Magnitude Language Models" has some minor copyediting improvements relative to the current arXiv version, but it has the same content.
+For convenience, a copy of each of the papers is included in the [papers directory](papers). The copy of "Similarity-Distance-Magnitude Activations" is the current version on [arXiv](http://arxiv.org/abs/2509.12760) (v6 adds Appendix A.10 and Alg. 2, which describe nested SDM estimators as implemented in the publicly available code). The copy of "Similarity-Distance-Magnitude Language Models" has some minor copyediting improvements relative to the current arXiv version, but it has the same content.
 
 ### Presentations
 
