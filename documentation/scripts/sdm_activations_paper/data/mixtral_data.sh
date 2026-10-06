@@ -2,7 +2,8 @@
 ##################### Overview
 #########################################################################################################
 
-# The preprocessed data is available in the GitHub release, but we include this for reference.
+# The original data files are available from their respective publications. We provide the links
+# in the Phi3.5 script, which is also in this directory.
 # The add_mixtral_8x7b_instruct_embeddings.py script can be used as a reference for adding new datasets
 # with the expected input format. (The shuffling of the data for the OOD datasets occurs once,
 # and the approach for doing so is in the Phi3.5 script.)

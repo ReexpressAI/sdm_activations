@@ -2,9 +2,61 @@
 ##################### Overview
 #########################################################################################################
 
-# The preprocessed data is available in the GitHub release, but we include this for reference.
+# The original data files are available from their respective publications. We provide the links below.
 # The add_phi_3_5_instruct_embeddings.py script can be used as a reference for adding new datasets
 # with the expected input format.
+
+#########################################################################################################
+##################### FACTCHECK -- data source
+#########################################################################################################
+
+# The data is available in the link in the following publication, p. 5 (p. 971 of the Anthology). (Note that as of writing,
+# the link in the PDF has an extraneous "https://aclanthology.org/" prefix in the URL.)
+
+# Amos Azaria and Tom Mitchell. 2023. The Internal State of an LLM Knows When It's Lying. In Findings of the Association for Computational Linguistics: EMNLP 2023, pages 967–976, Singapore. Association for Computational Linguistics. https://doi.org/10.18653/v1/2023.findings-emnlp.68
+
+# Convert the csv files into JSON lines files with the following fields:
+#
+# "id": unique id (e.g., as via str(uuid.uuid4()) in Python)
+# "label": 0 or 1
+# "document": the document text
+
+# The rows of generated_true_false.csv are used for the held-out test set below labeled "ood_eval.jsonl".
+# The rows of the remaining .csv files can be randomly assigned to "calibration.jsonl" and "train.jsonl".
+
+# Recall from the SDM Activations paper that D_tr and D_ca are randomly split for each of J iterations of learning the SDM activation.
+# We do the same for the adaptors of the baseline estimators. (The code performs the shuffling, so you can just deterministically
+# concatenate the remaining files together at this stage to create two disjoint sets for "calibration.jsonl" and
+# "train.jsonl". The key point is to ensure that the documents in the generated_true_false.csv file are
+# assigned to the held-out set, which is named "ood_eval.jsonl" below.)
+
+#########################################################################################################
+##################### SENTIMENT -- data source
+#########################################################################################################
+
+# The in-distribution sentiment dataset is a subset of the commonly used benchmark data from the following publication:
+#
+# Andrew L. Maas, Raymond E. Daly, Peter T. Pham, Dan Huang, Andrew Y. Ng, and Christopher Potts. 2011. Learning Word Vectors for Sentiment Analysis. In Proceedings of the 49th Annual Meeting of the Association for Computational Linguistics: Human Language Technologies, pages 142–150, Portland, Oregon, USA. Association for Computational Linguistics. https://aclanthology.org/P11-1015/
+#
+# The original full dataset is here: https://ai.stanford.edu/~amaas/data/sentiment/
+#
+# For the in-distribution data, to simplify things, we recommend using the full original sets, or sampling smaller sets, as needed, to construct in-distribution training/calibration and held-out sets. The original splits used in the paper were constructed as follows, and were splits used from an earlier analysis of existing works. For training_set.jsonl, we used the 3.4k split from the following work:
+#
+# Kaushik, Divyansh, Eduard Hovy, and Zachary Lipton. 2020. Learning the difference that makes a difference with counterfactually-augmented data. In International Conference on Learning Representations.
+#
+# For calibration_set.jsonl, we used a disjoint 16k set of reviews from the original training set of Maas et al. (2011). The two held-out sets referenced below (the 488 documents of eval_set.jsonl and the 1583 documents of validation_set.jsonl) are remaining disjoint sets used for evaluation. The paper uses the larger 1583 set as D_te.
+#
+# The SemEval2017-task4-test.subtask-A.english.binaryevalformat.balanced.jsonl dataset ("SentimentOOD" in the paper) is from:
+#
+# Sara Rosenthal, Noura Farra, and Preslav Nakov. 2017. SemEval-2017 Task 4: Sentiment Analysis in Twitter. In Proceedings of the 11th International Workshop on Semantic Evaluation (SemEval-2017), pages 502–518, Vancouver, Canada. Association for Computational Linguistics. https://doi.org/10.18653/v1/S17-2088
+#
+# The balanced 4750-document SentimentOOD set can be constructed by using the following: https://github.com/allenschmaltz/exa/blob/main/replication_scripts/sentiment_data/data/semeval_2017_data_init.sh (which uses https://github.com/allenschmaltz/exa/blob/main/code/data/sentiment/counterfactual_dataset/semeval_2017/semeval_2017_task_4a_sentiment_data_to_binaryevalformat_v2.py).
+
+# As with the Factcheck data, the inputs to the following scripts are JSON lines files. Convert the labeled documents into JSON lines files with the following fields:
+#
+# "id": unique id (e.g., as via str(uuid.uuid4()) in Python)
+# "label": 0 or 1
+# "document": the document text
 
 #########################################################################################################
 ##################### FACTCHECK -- create shuffled test -- this is independent of the model
