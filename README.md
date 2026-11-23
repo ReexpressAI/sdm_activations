@@ -1,4 +1,4 @@
-# SDM Activations and SDM Language Models research repo
+# SDM Activations research repo
 
 ### Video overview: [Here](https://youtu.be/bKswgsyRAPo)
 
