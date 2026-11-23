@@ -6,21 +6,17 @@
 
 ## Overview
 
-This repo includes support code and replication scripts for the papers "Similarity-Distance-Magnitude Activations" and "Similarity-Distance-Magnitude Language Models". This repo only includes auxiliary code (e.g., for preprocessing the research datasets) and scripts containing the parameters used for the experiments. The **research code** is in the [Reexpress MCP Server repo](https://github.com/ReexpressAI/reexpress_mcp_server). The scripts for constructing the input embeddings are available in *this* repo for replicating the results of the research paper.
+This repo includes support code and replication scripts for the paper "Similarity-Distance-Magnitude Activations". This repo only includes auxiliary code (e.g., for preprocessing the research datasets) and scripts containing the parameters used for the experiments. The original **research code** is in the [Reexpress MCP Server repo](https://github.com/ReexpressAI/reexpress_mcp_server). The scripts for constructing the input embeddings are available in *this* repo for replicating the results of the research paper.
 
 **For new applications and research, we recommend using the Apache-2.0 Python package [reexpress-sdm](https://pypi.org/project/reexpress-sdm/).**
 
 ## Changelog
 
-### Update October 5, 2026:
+### Update November 23, 2026:
 
-The research note on nested SDM estimators has been incorporated into v6 of the arXiv copy of "Similarity-Distance-Magnitude Activations" as Appendix A.10.
+This repo has been consolidated to only focus on the paper "Similarity-Distance-Magnitude Activations".
 
-We recommend that new applications of SDM estimators use the Apache-2.0 Python package [reexpress-sdm](https://pypi.org/project/reexpress-sdm/).
-
-### Update August 28, 2026:
-
-Release v2.4.1 of the Reexpress MCP Server is the latest release that includes the code for replicating the baseline adaptors, as well as the original LM post-training code for Phi-3.5. When using SDM estimators for new projects, we recommend using the streamlined codebase starting in release v2.5.0. The SDM estimator behavior is the same, but the new version also implements [nested estimators](https://raw.githubusercontent.com/ReexpressAI/sdm_activations/main/research_notes/nested_sdm_estimators.pdf), which are useful in practice for ranking the relative probability of points outside the High-Reliability region. Using the newer version is largely the same, with some minor changes and additions to the command-line interface. For reference, the directory [v2.5.0_code_examples](documentation/scripts/sdm_activations_paper/v2.5.0_code_examples) includes representative usage examples. (Separately, the LM post-training code will eventually have its own dedicated repo, coinciding with the release of a revised version of "Similarity-Distance-Magnitude Language Models".)
+As noted above, we recommend that new applications of SDM estimators use the Apache-2.0 Python package [reexpress-sdm](https://pypi.org/project/reexpress-sdm/).
 
 ## Installation
 
@@ -34,15 +30,9 @@ Scripts for training and testing the models in the main text are in the [sdm_act
 
 [README_auxiliary_experiments.md](documentation/scripts/sdm_activations_paper/aux_experiments/README_auxiliary_experiments.md) provides some auxiliary experiments (along with replication code/scripts) to further demonstrate aspects of the behavior of SDM activations and estimators.
 
-### "Similarity-Distance-Magnitude Language Models"
+### Paper
 
-Scripts for training and testing the models are in the [sdm_lms_paper directory](documentation/scripts/sdm_lms_paper/models).
-
-*Work in progress: Larger scale experiments and models are in development. (See the changelog from August 28, 2026. This work will be moved to a dedicated repo in the future.)*
-
-### Papers
-
-For convenience, a copy of each of the papers is included in the [papers directory](papers). The copy of "Similarity-Distance-Magnitude Activations" is the current version on [arXiv](http://arxiv.org/abs/2509.12760) (v6 adds Appendix A.10 and Alg. 2, which describe nested SDM estimators as implemented in the publicly available code). The copy of "Similarity-Distance-Magnitude Language Models" has some minor copyediting improvements relative to the current arXiv version, but it has the same content.
+For convenience, a copy of the paper is included in the [papers directory](papers). The copy of "Similarity-Distance-Magnitude Activations" is the current version on [arXiv](http://arxiv.org/abs/2509.12760), which matches the current version in the ACL Anthology. 
 
 ### Presentations
 
@@ -70,19 +60,5 @@ Appearing in *Findings of the Association for Computational Linguistics: ACL 202
     pages = "22037--22057",
     ISBN = "979-8-89176-395-1",
     abstract = "We introduce the Similarity-Distance-Magnitude (SDM) activation function, a more robust and interpretable formulation of the standard softmax activation function, adding Similarity (i.e., correctly predicted depth-matches into training) awareness and Distance-to-training-distribution awareness to the existing output Magnitude (i.e., decision-boundary) awareness, and enabling interpretability-by-exemplar via dense matching. We further introduce the SDM estimator, based on a data-driven partitioning of the class-wise empirical CDFs via the SDM activation, to control the class- and prediction-conditional accuracy among selective classifications. When used as the final-layer activation over pre-trained language models for selective classification, the SDM estimator is more robust to covariate shifts and out-of-distribution inputs than existing calibration methods using softmax activations, while remaining informative over in-distribution data."
-}
-```
-
-Pre-print (work in progress):
-
-```
-@misc{Schmaltz-2025-SimilarityDistanceMagnitudeLanguageModels,
-      title={Similarity-Distance-Magnitude Language Models}, 
-      author={Allen Schmaltz},
-      year={2025},
-      eprint={2510.26183},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2510.26183}, 
 }
 ```
